@@ -1,0 +1,14 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+xero_auth:
+    path: /xero/auth
+    controller: App\Controller\XeroController::auth
+
+xero_callback:
+    path: /xero/callback
+    controller: App\Controller\XeroController::callback
+

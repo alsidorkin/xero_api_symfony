@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+ <ul>
+            <li><a href="authorizedResource.php?action=1">Get Organisation Name</a></li>
+            <li><a href="authorizedResource.php?action=2">Create one Contact</a></li>
+            <li><a href="authorizedResource.php?action=3">Get Invoice with Filters</a></li>
+            <li><a href="authorizedResource.php?action=4">Create multiple contacts and summarizeErrors</a></li>
+            <li><a href="authorizedResource.php?action=5">Get Contact with Filters</a></li>
+            <li><a href="authorizedResource.php?action=6">Get JWT Claims</a></li>
+            <!-- <li><a href="authorizedResource.php?action=createContact">Create Contact</a></li>
+            <li><a href="authorizedResource.php?action=updateContact">Update Contact</a></li>
+            <li><a href="authorizedResource.php?action=deleteContact">Delete Contact</a></li> -->
+        </ul>
+
+         <div>
+        {{ message|raw }}
+        </div>
+{% endblock %}
