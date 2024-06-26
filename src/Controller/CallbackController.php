@@ -10,9 +10,19 @@ use XeroAPI\XeroPHP\Configuration;
 use XeroAPI\XeroPHP\Api\IdentityApi;
 use GuzzleHttp\Client as GuzzleClient;
 use App\StorageClass;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CallbackController extends AbstractController
 {
+
+  private $urlGenerator;
+
+  public function __construct(UrlGeneratorInterface $urlGenerator)
+  {
+      $this->urlGenerator = $urlGenerator;
+  }
+
     #[Route('/callback.php', name: 'app_callback')]
     public function callback(Request $request, StorageClass $storage): Response
     {
@@ -24,7 +34,7 @@ class CallbackController extends AbstractController
   $provider = new \League\OAuth2\Client\Provider\GenericProvider([
     'clientId'                => '34D76C0B89F740A48B3A9BC86A9B2FEC',
     'clientSecret'            => 'tYnuyj5AJKwR8nmKJrS6RExzdXV39O3Fg7ADx4Ftip-Tm6tI',
-    'redirectUri'             => 'http://localhost:8001/callback.php',
+    'redirectUri'             => 'http://localhost:8000/callback.php',
     'urlAuthorize'            => 'https://login.xero.com/identity/connect/authorize',
     'urlAccessToken'          => 'https://identity.xero.com/connect/token',
     'urlResourceOwnerDetails' => 'https://api.xero.com/api.xro/2.0/Organisation'
@@ -68,8 +78,10 @@ class CallbackController extends AbstractController
           $accessToken->getValues()["id_token"]
       );
 
-      header('Location: ' . './authorizedResource.php');
-      exit();
+      // header('Location: ' . './authorizedResource.php');
+      // exit();
+
+      return new RedirectResponse($this->urlGenerator->generate('contacts_list'));
 
     } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
       echo "Callback failed";
